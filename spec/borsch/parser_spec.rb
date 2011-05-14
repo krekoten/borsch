@@ -222,6 +222,7 @@ describe Borsch::Parser do
         account balance println
 IO
       end
+      it { should_not parse('Object clone)') }
     end
   end
 end
