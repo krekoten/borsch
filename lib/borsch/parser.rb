@@ -43,10 +43,10 @@ module Borsch
     end
 
     rule :decimal do
-      (
+      ((
         digits >> (str('.') >> digits).maybe |
         str('.') >> digits
-      ) >> (str('e') >> str('-').maybe >> digits).maybe
+      ) >> (str('e') >> str('-').maybe >> digits).maybe).as(:decimal)
     end
 
     rule :hex_digit do
@@ -123,15 +123,15 @@ module Borsch
         str("*") | str("-") | str("+") | str("/") | str("=") |
         str("{") | str("}") | str("[") | str("]") | str("|") |
         str("\\") | str("<") | str(">") | str("?")
-      ).repeat(1)
+      ).repeat(1).as(:operator)
     end
 
     rule :identifier do
-      (letter | digit | str('_')).repeat(1)
+      (letter | digit | str('_')).repeat(1).as(:identifier)
     end
 
     rule :symbol do
-      identifier | number | operator | quote
+      number | operator | identifier | quote
     end
 
     # Expression
